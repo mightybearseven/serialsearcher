@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asset Lookup — Dell · HP · Lenovo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0d1117;--surface:#161b22;--surface2:#1c2128;
+    --border:#21262d;--border2:#30363d;
+    --accent:#388bfd;--accent-h:#58a6ff;
+    --text:#e6edf3;--text2:#8b949e;--text3:#484f58;
+    --green:#3fb950;--red:#f85149;--yellow:#d29922;--purple:#bc8cff;
+    --dell:#007db8;--hp:#0096d6;--lenovo:#e2231a;
+    --mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans',sans-serif;--r:6px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:14px;min-height:100vh;}
+
+  header{background:var(--surface);border-bottom:1px solid var(--border);padding:0 20px;height:52px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;}
+  .hdr-left{display:flex;align-items:center;gap:10px;}
+  .brand-badges{display:flex;gap:5px;}
+  .bb{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:2px 7px;border-radius:3px;border:1px solid;}
+  .bb-dell{color:var(--dell);border-color:var(--dell);}
+  .bb-hp{color:var(--hp);border-color:var(--hp);}
+  .bb-lenovo{color:var(--lenovo);border-color:var(--lenovo);}
+  .app-name{font-family:var(--mono);font-size:13px;color:var(--text2);}
+  .ai-badge{font-family:var(--mono);font-size:10px;color:var(--purple);background:rgba(188,140,255,.1);border:1px solid rgba(188,140,255,.3);padding:2px 8px;border-radius:20px;}
+
+  .layout{display:grid;grid-template-columns:290px 1fr;height:calc(100vh - 52px);}
+
+  aside{background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;}
+  .panel{padding:15px 17px;border-bottom:1px solid var(--border);}
+  .panel-title{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);margin-bottom:11px;display:flex;align-items:center;gap:8px;}
+  .panel-title::after{content:'';flex:1;height:1px;background:var(--border);}
+
+  label{display:block;font-family:var(--mono);font-size:11px;color:var(--text2);margin-bottom:4px;}
+  .api-input{width:100%;background:var(--bg);border:1px solid var(--border2);color:var(--text);font-family:var(--mono);font-size:11px;padding:7px 10px;border-radius:var(--r);outline:none;transition:border-color .15s;margin-bottom:8px;}
+  .api-input:focus{border-color:var(--accent);}
+  .api-input::placeholder{color:var(--text3);}
+
+  .brand-picker{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;margin-bottom:10px;}
+  .brand-btn{padding:6px 4px;font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border-radius:var(--r);border:1px solid var(--border2);background:transparent;color:var(--text3);cursor:pointer;transition:all .15s;text-align:center;}
+  .brand-btn.active-dell{background:rgba(0,125,184,.15);color:var(--dell);border-color:var(--dell);}
+  .brand-btn.active-hp{background:rgba(0,150,214,.15);color:var(--hp);border-color:var(--hp);}
+  .brand-btn.active-lenovo{background:rgba(226,35,26,.15);color:var(--lenovo);border-color:var(--lenovo);}
+
+  textarea{width:100%;background:var(--bg);border:1px solid var(--border2);color:var(--text);font-family:var(--mono);font-size:12px;padding:9px 11px;border-radius:var(--r);outline:none;resize:vertical;min-height:110px;line-height:1.7;transition:border-color .15s;}
+  textarea:focus{border-color:var(--accent);}
+  textarea::placeholder{color:var(--text3);}
+  .tag-hint{font-size:11px;color:var(--text3);margin-top:5px;font-family:var(--mono);line-height:1.5;}
+  .tag-hint kbd{background:var(--surface2);border:1px solid var(--border2);border-radius:3px;padding:1px 5px;font-size:10px;}
+
+  .btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:8px 12px;font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.05em;border-radius:var(--r);border:none;cursor:pointer;transition:all .15s;text-transform:uppercase;}
+  .btn-primary{background:var(--accent);color:#fff;}
+  .btn-primary:hover{background:var(--accent-h);}
+  .btn-ai{background:rgba(188,140,255,.15);color:var(--purple);border:1px solid rgba(188,140,255,.35);}
+  .btn-ai:hover{background:rgba(188,140,255,.25);border-color:var(--purple);}
+  .btn-ai:disabled{opacity:.4;cursor:not-allowed;}
+  .btn-ghost{background:transparent;color:var(--text2);border:1px solid var(--border2);}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent-h);}
+  .btn-danger{background:transparent;color:var(--red);border:1px solid transparent;}
+  .btn-danger:hover{border-color:var(--red);background:rgba(248,81,73,.1);}
+  .btn-group{display:flex;flex-direction:column;gap:6px;}
+
+  .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+  .stat-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:9px 11px;}
+  .stat-num{font-family:var(--mono);font-size:20px;font-weight:600;line-height:1;}
+  .stat-num.green{color:var(--green);}
+  .stat-num.yellow{color:var(--yellow);}
+  .stat-num.purple{color:var(--purple);}
+  .stat-label{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-top:3px;}
+  .progress-wrap{height:3px;background:var(--border);border-radius:2px;overflow:hidden;margin-top:9px;}
+  .progress-bar{height:100%;background:var(--green);border-radius:2px;transition:width .4s ease;width:0%;}
+
+  .ai-progress{display:none;padding:10px 17px;border-bottom:1px solid var(--border);}
+  .ai-progress-label{font-family:var(--mono);font-size:11px;color:var(--purple);margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+  .ai-prog-bar-wrap{height:2px;background:var(--border);border-radius:2px;overflow:hidden;}
+  .ai-prog-bar{height:100%;background:var(--purple);border-radius:2px;transition:width .3s ease;}
+  .spinner{display:inline-block;width:10px;height:10px;border:1.5px solid rgba(188,140,255,.3);border-top-color:var(--purple);border-radius:50%;animation:spin .6s linear infinite;flex-shrink:0;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  #linkDrawer{display:none;border-bottom:1px solid var(--border);}
+  .drawer-header{padding:10px 17px 4px;display:flex;align-items:center;justify-content:space-between;}
+  .drawer-title{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);}
+  .drawer-close{background:none;border:none;color:var(--text3);cursor:pointer;font-size:18px;line-height:1;}
+  .drawer-hint{padding:0 17px 5px;font-family:var(--mono);font-size:11px;color:var(--text3);}
+  #linkList{padding:0 17px 12px;display:flex;flex-direction:column;gap:4px;max-height:180px;overflow-y:auto;}
+  .dl{font-family:var(--mono);font-size:12px;text-decoration:none;display:block;padding:2px 0;}
+  .dl:hover{text-decoration:underline;}
+  .dl-dell{color:var(--dell);}.dl-hp{color:var(--hp);}.dl-lenovo{color:var(--lenovo);}
+
+  .status-msg{padding:9px 17px;font-family:var(--mono);font-size:11px;color:var(--text3);border-top:1px solid var(--border);min-height:36px;display:flex;align-items:center;margin-top:auto;}
+  .status-msg.ok{color:var(--green);}.status-msg.warn{color:var(--yellow);}.status-msg.err{color:var(--red);}.status-msg.ai{color:var(--purple);}
+
+  main{display:flex;flex-direction:column;overflow:hidden;}
+  .toolbar{padding:10px 17px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--surface);flex-shrink:0;gap:10px;}
+  .search-wrap{position:relative;flex:1;max-width:260px;}
+  .search-wrap svg{position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--text3);pointer-events:none;}
+  .search-input{width:100%;background:var(--bg);border:1px solid var(--border2);color:var(--text);font-family:var(--mono);font-size:12px;padding:6px 10px 6px 30px;border-radius:var(--r);outline:none;transition:border-color .15s;}
+  .search-input:focus{border-color:var(--accent);}
+  .search-input::placeholder{color:var(--text3);}
+  .toolbar-right{display:flex;gap:7px;align-items:center;}
+  .btn-sm{padding:5px 10px;font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.05em;border-radius:var(--r);border:1px solid var(--border2);background:transparent;color:var(--text2);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:5px;text-transform:uppercase;white-space:nowrap;}
+  .btn-sm:hover{border-color:var(--accent);color:var(--accent-h);}
+  .btn-sm.primary{background:var(--accent);color:#fff;border-color:var(--accent);}
+  .btn-sm.primary:hover{background:var(--accent-h);}
+  .btn-sm.copy-btn{border-color:rgba(188,140,255,.35);color:var(--purple);}
+  .btn-sm.copy-btn:hover{border-color:var(--purple);background:rgba(188,140,255,.1);}
+
+  .table-scroll{flex:1;overflow:auto;}
+  table{width:100%;border-collapse:collapse;}
+  thead{position:sticky;top:0;z-index:10;}
+  th{background:var(--surface);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);padding:8px 11px;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;font-weight:500;}
+  th:first-child{padding-left:17px;}
+  tbody tr{border-bottom:1px solid var(--border);transition:background .1s;}
+  tbody tr:hover{background:var(--surface);}
+  tbody tr.filtered{display:none;}
+  td{padding:6px 11px;vertical-align:middle;}
+  td:first-child{padding-left:17px;}
+
+  .tag-cell{display:flex;align-items:center;gap:6px;}
+  .dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;transition:all .2s;}
+  .dot-pending{background:var(--border2);}
+  .dot-filled{background:var(--green);box-shadow:0 0 4px rgba(63,185,80,.45);}
+  .dot-ai{background:var(--purple);box-shadow:0 0 4px rgba(188,140,255,.45);}
+  .dot-visited{background:var(--yellow);}
+
+  .tag-link{font-family:var(--mono);font-size:12px;text-decoration:none;font-weight:500;letter-spacing:.04em;}
+  .tag-link:hover{text-decoration:underline;}
+  .tag-link.dl-dell{color:var(--dell);}.tag-link.dl-hp{color:var(--hp);}.tag-link.dl-lenovo{color:var(--lenovo);}
+
+  .brand-pill{font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:2px 5px;border-radius:3px;border:1px solid;white-space:nowrap;}
+  .pill-dell{color:var(--dell);border-color:rgba(0,125,184,.4);background:rgba(0,125,184,.08);}
+  .pill-hp{color:var(--hp);border-color:rgba(0,150,214,.4);background:rgba(0,150,214,.08);}
+  .pill-lenovo{color:var(--lenovo);border-color:rgba(226,35,26,.4);background:rgba(226,35,26,.08);}
+
+  .row-status{font-family:var(--mono);font-size:10px;white-space:nowrap;}
+  .rs-ai{color:var(--purple);}.rs-manual{color:var(--green);}.rs-visited{color:var(--yellow);}.rs-pending{color:var(--text3);}
+
+  .cell-input{width:100%;background:transparent;border:none;border-bottom:1px solid transparent;color:var(--text);font-family:var(--sans);font-size:13px;padding:2px 0;outline:none;transition:border-color .15s;}
+  .cell-input:focus{border-bottom-color:var(--accent);}
+  .cell-input::placeholder{color:var(--text3);font-size:12px;}
+  .cell-input.ai-filled{color:var(--purple);}
+
+  .open-btn{background:transparent;border:1px solid var(--border2);color:var(--text2);font-family:var(--mono);font-size:10px;letter-spacing:.04em;padding:3px 8px;border-radius:var(--r);cursor:pointer;transition:all .15s;text-transform:uppercase;}
+  .open-btn:hover{border-color:var(--accent);color:var(--accent-h);}
+
+  .empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:3rem;}
+  .empty-icon{width:48px;height:48px;border:2px solid var(--border2);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:4px;}
+  .empty-title{font-family:var(--mono);font-size:13px;color:var(--text2);letter-spacing:.06em;text-transform:uppercase;}
+  .empty-sub{font-size:13px;color:var(--text3);text-align:center;max-width:300px;line-height:1.6;}
+
+  ::-webkit-scrollbar{width:5px;height:5px;}
+  ::-webkit-scrollbar-track{background:transparent;}
+  ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px;}
+
+  #toast{position:fixed;bottom:20px;right:20px;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--r);padding:9px 14px;font-family:var(--mono);font-size:12px;color:var(--text);z-index:200;opacity:0;transform:translateY(6px);transition:opacity .2s,transform .2s;pointer-events:none;max-width:300px;}
+  #toast.show{opacity:1;transform:translateY(0);}
+
+  @media(max-width:800px){
+    .layout{grid-template-columns:1fr;grid-template-rows:auto 1fr;height:auto;}
+    aside{border-right:none;border-bottom:1px solid var(--border);}
+    main{height:70vh;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hdr-left">
+    <div class="brand-badges">
+      <span class="bb bb-dell">Dell</span>
+      <span class="bb bb-hp">HP</span>
+      <span class="bb bb-lenovo">Lenovo</span>
+    </div>
+    <span class="app-name">Asset Lookup</span>
+  </div>
+  <span class="ai-badge">✦ AI Auto-Lookup</span>
+</header>
+
+<div class="layout">
+  <aside>
+
+    <div class="panel">
+      <div class="panel-title">Claude API Key</div>
+      <label>API Key (enables auto-lookup)</label>
+      <input class="api-input" type="password" id="apiKey" placeholder="sk-ant-api03-..." autocomplete="off">
+      <p class="tag-hint" style="margin-top:0;">Paste your Anthropic API key to enable AI lookup. <a href="https://console.anthropic.com/settings/keys" target="_blank" style="color:var(--purple)">Get one ↗</a><br>Key never leaves your browser.</p>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">Add Tags</div>
+      <label>Brand</label>
+      <div class="brand-picker">
+        <button class="brand-btn active-dell" id="btn-dell" onclick="selectBrand('dell')">Dell</button>
+        <button class="brand-btn" id="btn-hp" onclick="selectBrand('hp')">HP</button>
+        <button class="brand-btn" id="btn-lenovo" onclick="selectBrand('lenovo')">Lenovo</button>
+      </div>
+      <label>Serial / Service Tags</label>
+      <textarea id="tagInput" placeholder="One per line or comma separated&#10;&#10;e.g.&#10;594XKR3&#10;5CG0234407&#10;PF2JLMMR"></textarea>
+      <p class="tag-hint" id="tagHint">Dell: 5–7 char · <kbd>Ctrl+Enter</kbd> to load</p>
+      <div style="display:flex;gap:6px;margin-top:8px;">
+        <button class="btn btn-primary" onclick="loadTags()" style="flex:1;">
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M8 1v9M3 6l5 5 5-5M1 14h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Load
+        </button>
+        <button class="btn btn-ai" id="autoLookupBtn" onclick="autoLookupAll()" style="flex:2;" title="Use Claude AI + web search to auto-fill model and processor">
+          <span id="autoLookupIcon">✦</span> AI Lookup All
+        </button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">Progress</div>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-num" id="s-total">0</div><div class="stat-label">Total</div></div>
+        <div class="stat-card"><div class="stat-num green" id="s-filled">0</div><div class="stat-label">Filled</div></div>
+        <div class="stat-card"><div class="stat-num purple" id="s-ai">0</div><div class="stat-label">AI found</div></div>
+        <div class="stat-card"><div class="stat-num yellow" id="s-pending">0</div><div class="stat-label">Pending</div></div>
+      </div>
+      <div class="progress-wrap"><div class="progress-bar" id="progress-bar"></div></div>
+    </div>
+
+    <div class="ai-progress" id="aiProgress">
+      <div class="ai-progress-label"><span class="spinner"></span><span id="aiProgressText">Looking up...</span></div>
+      <div class="ai-prog-bar-wrap"><div class="ai-prog-bar" id="aiProgBar" style="width:0%"></div></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">Actions</div>
+      <div class="btn-group">
+        <button class="btn btn-ghost" onclick="toggleLinkDrawer('all')">
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M7 2H3a1 1 0 00-1 1v10a1 1 0 001 1h10a1 1 0 001-1V9M10 1h5m0 0v5m0-5L6 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Show All Links
+        </button>
+        <button class="btn btn-ghost" onclick="exportCSV()">
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M2 10v3a1 1 0 001 1h10a1 1 0 001-1v-3M8 1v8m-3-3l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Export CSV
+        </button>
+        <button class="btn btn-danger" onclick="clearAll()">
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M5 4V2h6v2M6 7v5M10 7v5M3 4l1 9a1 1 0 001 1h6a1 1 0 001-1l1-9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Clear All
+        </button>
+      </div>
+    </div>
+
+    <div id="linkDrawer">
+      <div class="drawer-header">
+        <span class="drawer-title" id="drawerTitle">Links</span>
+        <button class="drawer-close" onclick="toggleLinkDrawer(null)">&times;</button>
+      </div>
+      <p class="drawer-hint">Ctrl+click or middle-click to open in new tab.</p>
+      <div id="linkList"></div>
+    </div>
+
+    <div class="status-msg" id="status-msg">Ready — enter API key and load tags.</div>
+  </aside>
+
+  <main>
+    <div class="toolbar">
+      <div class="search-wrap">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M10 10l3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <input class="search-input" id="searchInput" type="text" placeholder="Filter by tag, brand, model..." oninput="filterTable()">
+      </div>
+      <div class="toolbar-right">
+        <button class="btn-sm" onclick="toggleLinkDrawer('pending')">Pending Links</button>
+        <button class="btn-sm copy-btn" onclick="copyTable()" title="Copy as tab-separated for Excel/Sheets">
+          <svg width="11" height="11" viewBox="0 0 16 16" fill="none"><rect x="5" y="5" width="9" height="9" rx="1" stroke="currentColor" stroke-width="1.5"/><path d="M11 5V3a1 1 0 00-1-1H3a1 1 0 00-1 1v7a1 1 0 001 1h2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Copy Table
+        </button>
+        <button class="btn-sm primary" onclick="exportCSV()">
+          <svg width="11" height="11" viewBox="0 0 16 16" fill="none"><path d="M2 10v3a1 1 0 001 1h10a1 1 0 001-1v-3M8 1v8m-3-3l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Export CSV
+        </button>
+      </div>
+    </div>
+
+    <div class="table-scroll">
+      <div class="empty" id="emptyState">
+        <div class="empty-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M8 12h8M8 8h5M8 16h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="empty-title">No tags loaded</div>
+        <div class="empty-sub">Paste your Anthropic API key, pick a brand, paste serials and hit <strong>AI Lookup All</strong> — it will web search every serial and fill in model + processor automatically.</div>
+      </div>
+
+      <table id="dataTable" style="display:none;">
+        <thead>
+          <tr>
+            <th style="width:130px;">Tag / Serial</th>
+            <th style="width:65px;">Brand</th>
+            <th style="width:185px;">Model</th>
+            <th>Processor</th>
+            <th style="width:95px;">Notes</th>
+            <th style="width:75px;">Status</th>
+            <th style="width:55px;">Open</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<div id="toast"></div>
+
+<script>
+const BRANDS = {
+  dell:{label:'Dell',hint:'Dell: 5–7 char alphanumeric · <kbd>Ctrl+Enter</kbd> to load',validate:t=>/^[A-Z0-9]{5,7}$/.test(t),url:t=>`https://www.dell.com/support/home/en-us/product-support/servicetag/${t}/overview`},
+  hp:{label:'HP',hint:'HP: 8–12 char serial · <kbd>Ctrl+Enter</kbd> to load',validate:t=>/^[A-Z0-9]{8,12}$/.test(t),url:t=>`https://support.hp.com/us-en/check-warranty?serialnumber=${t}`},
+  lenovo:{label:'Lenovo',hint:'Lenovo: 6–12 char serial · <kbd>Ctrl+Enter</kbd> to load',validate:t=>/^[A-Z0-9]{6,12}$/.test(t),url:t=>`https://pcsupport.lenovo.com/us/en/products/${t}`}
+};
+
+let rows=[], activeBrand='dell', isLookingUp=false;
+
+function selectBrand(b){
+  activeBrand=b;
+  ['dell','hp','lenovo'].forEach(x=>{document.getElementById('btn-'+x).className='brand-btn'+(x===b?' active-'+x:'');});
+  document.getElementById('tagHint').innerHTML=BRANDS[b].hint;
+}
+
+function parseTags(raw,brand){
+  return [...new Set(raw.split(/[\n,]+/).map(t=>t.trim().toUpperCase()).filter(t=>BRANDS[brand].validate(t)))];
+}
+
+function loadTags(){
+  const raw=document.getElementById('tagInput').value;
+  const tags=parseTags(raw,activeBrand);
+  if(!tags.length){setStatus('No valid tags found. Check format for '+BRANDS[activeBrand].label+'.','warn');return;}
+  const existing=new Set(rows.map(r=>r.brand+':'+r.tag));
+  const newRows=tags.filter(t=>!existing.has(activeBrand+':'+t)).map(t=>({tag:t,brand:activeBrand,model:'',proc:'',notes:'',source:'pending',visited:false}));
+  const dupes=tags.length-newRows.length;
+  rows.push(...newRows);
+  document.getElementById('tagInput').value='';
+  render();
+  let msg=`Loaded ${newRows.length} ${BRANDS[activeBrand].label} tag${newRows.length!==1?'s':''}`;
+  if(dupes) msg+=` · ${dupes} duplicate${dupes!==1?'s':''} skipped`;
+  setStatus(msg,'ok');toast(msg);
+}
+
+function render(){
+  const tbody=document.getElementById('tbody'),table=document.getElementById('dataTable'),empty=document.getElementById('emptyState');
+  if(!rows.length){table.style.display='none';empty.style.display='flex';updateStats();return;}
+  table.style.display='table';empty.style.display='none';
+  tbody.innerHTML=rows.map((r,i)=>{
+    const dotC=r.source==='ai'?'dot-ai':r.source==='manual'?'dot-filled':r.visited?'dot-visited':'dot-pending';
+    const statusHtml=r.source==='ai'?'<span class="row-status rs-ai">✦ AI</span>':r.source==='manual'?'<span class="row-status rs-manual">✓ manual</span>':r.visited?'<span class="row-status rs-visited">⊙ visited</span>':'<span class="row-status rs-pending">— pending</span>';
+    const ac=r.source==='ai'?' ai-filled':'';
+    return `<tr id="row-${i}">
+      <td><div class="tag-cell"><span class="dot ${dotC}" id="dot-${i}"></span><a class="tag-link dl-${r.brand}" href="${BRANDS[r.brand].url(r.tag)}" target="_blank" rel="noopener" onclick="markVisited(${i})">${esc(r.tag)}</a></div></td>
+      <td><span class="brand-pill pill-${r.brand}">${BRANDS[r.brand].label}</span></td>
+      <td><input class="cell-input${ac}" type="text" placeholder="${modelPH(r.brand)}" value="${esc(r.model)}" oninput="update(${i},'model',this.value)"></td>
+      <td><input class="cell-input${ac}" type="text" placeholder="e.g. Intel Core i5-1345U" value="${esc(r.proc)}" oninput="update(${i},'proc',this.value)"></td>
+      <td><input class="cell-input" type="text" placeholder="—" value="${esc(r.notes)}" oninput="update(${i},'notes',this.value)"></td>
+      <td>${statusHtml}</td>
+      <td><button class="open-btn" onclick="openTag(${i})">Open</button></td>
+    </tr>`;
+  }).join('');
+  filterTable();updateStats();
+}
+
+function modelPH(b){return b==='dell'?'Latitude 5540':b==='hp'?'EliteBook 840 G10':'ThinkPad T14s';}
+function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function update(i,field,val){
+  rows[i][field]=val;
+  if((field==='model'||field==='proc')&&rows[i].source!=='ai') rows[i].source='manual';
+  refreshRow(i);updateStats();
+}
+
+function markVisited(i){if(rows[i].source==='pending'){rows[i].visited=true;refreshRow(i);updateStats();}}
+
+function refreshRow(i){
+  const r=rows[i];
+  const dot=document.getElementById('dot-'+i);
+  if(dot) dot.className='dot '+(r.source==='ai'?'dot-ai':r.source==='manual'?'dot-filled':r.visited?'dot-visited':'dot-pending');
+  const tr=document.getElementById('row-'+i);
+  if(!tr) return;
+  tr.cells[5].innerHTML=r.source==='ai'?'<span class="row-status rs-ai">✦ AI</span>':r.source==='manual'?'<span class="row-status rs-manual">✓ manual</span>':r.visited?'<span class="row-status rs-visited">⊙ visited</span>':'<span class="row-status rs-pending">— pending</span>';
+  const mi=tr.cells[2].querySelector('input'),pi=tr.cells[3].querySelector('input');
+  const ac=r.source==='ai'?' ai-filled':'';
+  if(mi){mi.className='cell-input'+ac;mi.value=r.model;}
+  if(pi){pi.className='cell-input'+ac;pi.value=r.proc;}
+}
+
+function updateStats(){
+  const total=rows.length,filled=rows.filter(r=>r.model.trim()||r.proc.trim()).length;
+  const ai=rows.filter(r=>r.source==='ai').length,pending=rows.filter(r=>!r.model.trim()&&!r.proc.trim()).length;
+  const pct=total?Math.round(filled/total*100):0;
+  document.getElementById('s-total').textContent=total;
+  document.getElementById('s-filled').textContent=filled;
+  document.getElementById('s-ai').textContent=ai;
+  document.getElementById('s-pending').textContent=pending;
+  document.getElementById('progress-bar').style.width=pct+'%';
+}
+
+// ── AI Lookup ──
+async function autoLookupAll(){
+  const apiKey=document.getElementById('apiKey').value.trim();
+  if(!apiKey){toast('Enter your Claude API key first.');return;}
+  const pending=rows.map((r,i)=>({...r,idx:i})).filter(r=>!r.model.trim()&&!r.proc.trim());
+  if(!pending.length){toast('No pending rows to look up.');return;}
+  if(isLookingUp) return;
+
+  isLookingUp=true;
+  document.getElementById('autoLookupBtn').disabled=true;
+  document.getElementById('autoLookupIcon').innerHTML='<span class="spinner" style="border-color:rgba(188,140,255,.3);border-top-color:var(--purple)"></span>';
+  document.getElementById('aiProgress').style.display='block';
+
+  const BATCH=5;
+  for(let b=0;b<pending.length;b+=BATCH){
+    const batch=pending.slice(b,b+BATCH);
+    const end=Math.min(b+BATCH,pending.length);
+    document.getElementById('aiProgressText').textContent=`Looking up ${b+1}–${end} of ${pending.length}...`;
+    document.getElementById('aiProgBar').style.width=Math.round(b/pending.length*100)+'%';
+    setStatus(`AI lookup: ${b+1}–${end} of ${pending.length}`,'ai');
+    await lookupBatch(batch,apiKey);
+  }
+
+  document.getElementById('aiProgBar').style.width='100%';
+  setTimeout(()=>{document.getElementById('aiProgress').style.display='none';},1500);
+  isLookingUp=false;
+  document.getElementById('autoLookupBtn').disabled=false;
+  document.getElementById('autoLookupIcon').textContent='✦';
+  const found=rows.filter(r=>r.source==='ai').length;
+  const stillPending=rows.filter(r=>!r.model&&!r.proc).length;
+  setStatus(`AI done — ${found} found, ${stillPending} still pending.`,'ok');
+  toast(`AI lookup complete: ${found} rows filled.`);
+  updateStats();
+}
+
+async function lookupBatch(batch,apiKey){
+  const lines=batch.map(r=>`- ${BRANDS[r.brand].label} serial: ${r.tag}`).join('\n');
+  const prompt=`You are a hardware asset lookup assistant. Use web search to find the exact model name and processor for each serial number below.
+
+Serials:
+${lines}
+
+Return ONLY a valid JSON array — no markdown, no explanation, no code fences. One object per serial:
+[{"serial":"TAG","model":"Full Model Name","proc":"Full CPU Name"},...]
+
+Rules:
+- Use exact full model names (e.g. "Dell Latitude 5540", "HP EliteBook 840 G10", "Lenovo ThinkPad T14s Gen 3")
+- Use full processor names (e.g. "Intel Core i5-1345U", "AMD Ryzen 5 PRO 6650U")
+- If you cannot find a serial, return empty strings for model and proc
+- Do NOT invent or guess — only include what you found via search`;
+
+  try {
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-calls':'true'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        tools:[{type:'web_search_20250305',name:'web_search'}],
+        messages:[{role:'user',content:prompt}]
+      })
+    });
+
+    if(!resp.ok){
+      const err=await resp.json().catch(()=>({}));
+      const msg='API error: '+(err.error?.message||resp.statusText||resp.status);
+      setStatus(msg,'err');toast(msg);
+      return;
+    }
+
+    const data=await resp.json();
+    const text=(data.content||[]).filter(c=>c.type==='text').map(c=>c.text).join('');
+    let results=[];
+    try{
+      const match=text.match(/\[[\s\S]*?\]/);
+      if(match) results=JSON.parse(match[0]);
+    }catch(e){console.warn('JSON parse failed:',text);}
+
+    results.forEach(res=>{
+      const serial=(res.serial||'').toUpperCase();
+      const idx=rows.findIndex(r=>r.tag===serial);
+      if(idx===-1) return;
+      if(res.model||res.proc){
+        rows[idx].model=res.model||'';
+        rows[idx].proc=res.proc||'';
+        rows[idx].source='ai';
+        refreshRow(idx);
+      }
+    });
+
+  }catch(e){
+    console.error('Lookup error:',e);
+    setStatus('Network error. Check API key and connection.','err');
+  }
+}
+
+// ── Open / Links ──
+function openTag(i){markVisited(i);window.open(BRANDS[rows[i].brand].url(rows[i].tag),'_blank','noopener');}
+
+function toggleLinkDrawer(mode){
+  const drawer=document.getElementById('linkDrawer'),list=document.getElementById('linkList'),title=document.getElementById('drawerTitle');
+  if(drawer.dataset.mode===mode&&drawer.style.display!=='none'){drawer.style.display='none';drawer.dataset.mode='';return;}
+  let subset=rows;
+  if(mode==='pending'){subset=rows.filter(r=>!r.model.trim()&&!r.proc.trim());title.textContent=`Pending links (${subset.length})`;}
+  else{title.textContent=`All links (${rows.length})`;}
+  if(!subset.length){toast(mode==='pending'?'No pending tags!':'No tags loaded.');return;}
+  list.innerHTML=subset.map(r=>`<a href="${BRANDS[r.brand].url(r.tag)}" target="_blank" rel="noopener" class="dl dl-${r.brand}" onclick="markVisited(${rows.indexOf(r)})">${esc(r.tag)}${r.model?' — '+esc(r.model):''}</a>`).join('');
+  drawer.dataset.mode=mode;drawer.style.display='block';
+}
+
+// ── Export ──
+function exportCSV(){
+  if(!rows.length){toast('Nothing to export.');return;}
+  const header='Service Tag,Brand,Model,Processor,Notes,Source';
+  const lines=rows.map(r=>[r.tag,BRANDS[r.brand].label,r.model,r.proc,r.notes,r.source].map(v=>`"${(v||'').replace(/"/g,'""')}"`).join(','));
+  const csv=[header,...lines].join('\r\n');
+  const a=Object.assign(document.createElement('a'),{href:URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8;'})),download:`assets_${new Date().toISOString().slice(0,10)}.csv`});
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  toast(`Exported ${rows.length} rows.`);
+}
+
+function copyTable(){
+  if(!rows.length){toast('Nothing to copy.');return;}
+  const header=['Service Tag','Brand','Model','Processor','Notes','Source'].join('\t');
+  const lines=rows.map(r=>[r.tag,BRANDS[r.brand].label,r.model,r.proc,r.notes,r.source].join('\t'));
+  navigator.clipboard.writeText([header,...lines].join('\n'))
+    .then(()=>toast('Copied! Paste into Excel or Sheets.'))
+    .catch(()=>toast('Copy failed — use Export CSV instead.'));
+}
+
+function clearAll(){if(!rows.length)return;rows=[];render();setStatus('Cleared.','');toast('All rows cleared.');}
+
+function filterTable(){
+  const q=document.getElementById('searchInput').value.toLowerCase().trim();
+  document.querySelectorAll('#tbody tr').forEach((tr,i)=>{
+    if(!q){tr.classList.remove('filtered');return;}
+    const r=rows[i];if(!r)return;
+    const hay=[r.tag,r.brand,BRANDS[r.brand].label,r.model,r.proc,r.notes].join(' ').toLowerCase();
+    tr.classList.toggle('filtered',!hay.includes(q));
+  });
+}
+
+function setStatus(msg,type){const el=document.getElementById('status-msg');el.textContent=msg;el.className='status-msg'+(type?' '+type:'');}
+
+let toastTimer;
+function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),3200);}
+
+document.getElementById('tagInput').addEventListener('keydown',e=>{if(e.key==='Enter'&&(e.ctrlKey||e.metaKey))loadTags();});
+</script>
+</body>
+</html>
