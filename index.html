@@ -531,7 +531,11 @@ function badgeHtml(s){
 function modelPH(b){return b==='dell'?'Latitude 5540':b==='hp'?'EliteBook 840 G10':'ThinkPad T14s';}
 function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
-function update(i,field,val){rows[i][field]=val;refreshRow(i);updateStats();saveSession();}
+// Debounced save — fires 600ms after last keystroke, not on every character
+let saveTimer=null;
+function debouncedSave(){clearTimeout(saveTimer);saveTimer=setTimeout(saveSession,600);}
+
+function update(i,field,val){rows[i][field]=val;refreshRow(i);updateStats();debouncedSave();}
 function markVisited(i){if(!rows[i].visited){rows[i].visited=true;refreshRow(i);updateStats();saveSession();}}
 
 function refreshRow(i){
@@ -544,7 +548,6 @@ function refreshRow(i){
   tr.cells[5].innerHTML=badgeHtml(s);
   const ob=tr.cells[6].querySelector('button');
   if(ob)ob.className='open-btn'+(s==='pending'?' unvisited':'');
-  applyFilters();
 }
 
 // ── STATS ─────────────────────────────────────────────────────────────────────
@@ -599,7 +602,16 @@ function bulkOpen(){
   const pending=rows.map((r,i)=>({r,i})).filter(({r})=>rowState(r)==='pending');
   if(!pending.length){toast('No unvisited tags remaining.');return;}
   const batch=pending.slice(0,n);
-  batch.forEach(({r,i})=>{markVisited(i);window.open(BRANDS[r.brand].url(r.tag),'_blank','noopener');});
+
+  // Open all blank tabs synchronously inside the click handler (browser allows this).
+  // Then navigate each one immediately — avoids popup blocker on looped window.open.
+  const handles=batch.map(()=>window.open('','_blank','noopener'));
+  batch.forEach(({r,i},idx)=>{
+    markVisited(i);
+    const win=handles[idx];
+    if(win) win.location.href=BRANDS[r.brand].url(r.tag);
+  });
+
   const tr=document.getElementById('row-'+batch[0].i);
   if(tr)tr.scrollIntoView({behavior:'smooth',block:'center'});
   const left=pending.length-batch.length;
@@ -669,10 +681,9 @@ function exportCSV(){
 }
 function copyTable(){
   if(!rows.length){toast('Nothing to copy.');return;}
-  const hdr=['#','Tag','Brand','Model','Processor/Notes','Visited'].join('\t');
-  const lines=rows.map((r,i)=>[(i+1),r.tag,BRANDS[r.brand].label,r.model,r.proc,r.visited?'yes':'no'].join('\t'));
-  navigator.clipboard.writeText([hdr,...lines].join('\n'))
-    .then(()=>toast('Copied — paste into Excel or Sheets.'))
+  const lines=rows.map(r=>r.tag+'\t'+r.model);
+  navigator.clipboard.writeText(lines.join('\n'))
+    .then(()=>toast('Copied — Tag + Model only.'))
     .catch(()=>toast('Copy failed — use Export CSV.'));
 }
 
