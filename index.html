@@ -303,7 +303,7 @@
 <script>
 const BRANDS={
   dell:{label:'Dell',hint:'Dell: 5\u20137 char alphanumeric \u00b7 <kbd>Ctrl+Enter</kbd> to load',validate:t=>/^[A-Z0-9]{5,7}$/.test(t),url:t=>`https://www.dell.com/support/home/en-us/product-support/servicetag/${t}/overview`},
-  hp:{label:'HP',hint:'HP: 8\u201312 char serial \u00b7 <kbd>Ctrl+Enter</kbd> to load',validate:t=>/^[A-Z0-9]{8,12}$/.test(t),url:t=>`https://support.hp.com/us-en/check-warranty?serialnumber=${t}`},
+  hp:{label:'HP',hint:'HP: 8\u201312 char serial \u00b7 <kbd>Ctrl+Enter</kbd> to load',validate:t=>/^[A-Z0-9]{8,12}$/.test(t),url:t=>`https://partsurfer.hp.com/?searchtext=${t}`,serial:t=>t},
   lenovo:{label:'Lenovo',hint:'Lenovo: 6\u201312 char serial \u00b7 <kbd>Ctrl+Enter</kbd> to load',validate:t=>/^[A-Z0-9]{6,12}$/.test(t),url:t=>`https://pcsupport.lenovo.com/us/en/products/${t}`}
 };
 let rows=[],activeBrand='dell',activeFilter='all';
@@ -411,7 +411,7 @@ function openNextUnvisited(){
   const idx = rows.findIndex(r => rowState(r) === 'pending');
   if(idx === -1){ toast('All tags have been opened!'); return; }
   markVisited(idx);
-  window.open(BRANDS[rows[idx].brand].url(rows[idx].tag), '_blank', 'noopener');
+  window.open(BRANDS[rows[idx].brand].url(rows[idx].tag), '_blank', 'noopener,noreferrer');
   // scroll to that row
   const tr = document.getElementById('row-'+idx);
   if(tr) tr.scrollIntoView({behavior:'smooth', block:'center'});
