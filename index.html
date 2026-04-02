@@ -26,11 +26,7 @@
   .bb-hp{color:var(--hp);border-color:var(--hp);}
   .bb-lenovo{color:var(--lenovo);border-color:var(--lenovo);}
   .app-name{font-family:var(--mono);font-size:13px;color:var(--text2);}
-  .hdr-right{display:flex;align-items:center;gap:8px;}
-  .session-badge{font-family:var(--mono);font-size:10px;color:var(--green);display:flex;align-items:center;gap:5px;}
-  .session-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
-  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
-  .layout{display:grid;grid-template-columns:290px 1fr;height:calc(100vh - 52px);}
+  .layout{display:grid;grid-template-columns:280px 1fr;height:calc(100vh - 52px);}
   aside{background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;}
   .panel{padding:15px 17px;border-bottom:1px solid var(--border);}
   .panel-title{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);margin-bottom:11px;display:flex;align-items:center;gap:8px;}
@@ -41,11 +37,11 @@
   .brand-btn.active-dell{background:rgba(0,125,184,.15);color:var(--dell);border-color:var(--dell);}
   .brand-btn.active-hp{background:rgba(0,150,214,.15);color:var(--hp);border-color:var(--hp);}
   .brand-btn.active-lenovo{background:rgba(226,35,26,.15);color:var(--lenovo);border-color:var(--lenovo);}
-  textarea{width:100%;background:var(--bg);border:1px solid var(--border2);color:var(--text);font-family:var(--mono);font-size:12px;padding:9px 11px;border-radius:var(--r);outline:none;resize:vertical;min-height:100px;line-height:1.7;transition:border-color .15s;}
+  textarea{width:100%;background:var(--bg);border:1px solid var(--border2);color:var(--text);font-family:var(--mono);font-size:12px;padding:9px 11px;border-radius:var(--r);outline:none;resize:vertical;min-height:120px;line-height:1.7;transition:border-color .15s;}
   textarea:focus{border-color:var(--accent);}
   textarea::placeholder{color:var(--text3);}
-  .hint{font-size:11px;color:var(--text3);margin-top:5px;font-family:var(--mono);line-height:1.6;}
-  .hint kbd{background:var(--surface2);border:1px solid var(--border2);border-radius:3px;padding:1px 5px;font-size:10px;}
+  .tag-hint{font-size:11px;color:var(--text3);margin-top:5px;font-family:var(--mono);line-height:1.5;}
+  .tag-hint kbd{background:var(--surface2);border:1px solid var(--border2);border-radius:3px;padding:1px 5px;font-size:10px;}
   .btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:8px 12px;font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.05em;border-radius:var(--r);border:none;cursor:pointer;transition:all .15s;text-transform:uppercase;}
   .btn-primary{background:var(--accent);color:#fff;}
   .btn-primary:hover{background:var(--accent-h);}
@@ -63,12 +59,6 @@
   .stat-label{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-top:3px;}
   .progress-wrap{height:3px;background:var(--border);border-radius:2px;overflow:hidden;margin-top:9px;}
   .progress-bar{height:100%;border-radius:2px;transition:width .4s ease;width:0%;background:linear-gradient(90deg,var(--accent),var(--green));}
-  .bulk-row{display:flex;align-items:center;gap:6px;}
-  .bulk-row input[type=number]{width:54px;background:var(--bg);border:1px solid var(--border2);color:var(--text);font-family:var(--mono);font-size:12px;padding:5px 7px;border-radius:var(--r);outline:none;text-align:center;}
-  .bulk-row input[type=number]:focus{border-color:var(--accent);}
-  .bulk-btn{flex:1;padding:7px 8px;font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-radius:var(--r);border:1px solid rgba(227,179,65,.5);background:rgba(227,179,65,.1);color:var(--yellow);cursor:pointer;transition:all .15s;}
-  .bulk-btn:hover{background:rgba(227,179,65,.2);}
-  .bulk-btn:disabled{opacity:.35;cursor:not-allowed;}
   .legend{display:flex;flex-direction:column;gap:7px;}
   .legend-row{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--text2);}
   .legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
@@ -91,9 +81,6 @@
   .status-msg{padding:9px 17px;font-family:var(--mono);font-size:11px;color:var(--text3);border-top:1px solid var(--border);min-height:36px;display:flex;align-items:center;margin-top:auto;}
   .status-msg.ok{color:var(--green);}
   .status-msg.warn{color:var(--yellow);}
-  .hk-grid{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;align-items:center;}
-  .hk-grid kbd{background:var(--surface2);border:1px solid var(--border2);border-radius:3px;padding:2px 6px;font-size:10px;font-family:var(--mono);color:var(--text2);white-space:nowrap;}
-  .hk-grid span{font-family:var(--mono);font-size:11px;color:var(--text3);}
   main{display:flex;flex-direction:column;overflow:hidden;}
   .toolbar{padding:10px 17px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--surface);flex-shrink:0;gap:10px;flex-wrap:wrap;}
   .search-wrap{position:relative;max-width:220px;flex:1;}
@@ -113,9 +100,9 @@
   .btn-sm.primary{background:var(--accent);color:#fff;border-color:var(--accent);}
   .btn-sm.primary:hover{background:var(--accent-h);}
   .btn-next{padding:5px 14px;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.06em;border-radius:var(--r);border:2px solid var(--yellow);background:rgba(227,179,65,.12);color:var(--yellow);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:6px;text-transform:uppercase;white-space:nowrap;}
-  .btn-next:hover{background:rgba(227,179,65,.25);}
+  .btn-next:hover{background:rgba(227,179,65,.25);box-shadow:0 0 10px rgba(227,179,65,.3);}
   .btn-next:active{transform:scale(0.97);}
-  .btn-next:disabled{opacity:.35;cursor:not-allowed;}
+  .btn-next:disabled{opacity:.35;cursor:not-allowed;box-shadow:none;}
   .btn-next-count{font-size:10px;opacity:.7;margin-left:2px;}
   .table-scroll{flex:1;overflow:auto;}
   table{width:100%;border-collapse:collapse;}
@@ -128,7 +115,6 @@
   tbody tr.row-visited:hover{background:rgba(227,179,65,.1);}
   tbody tr.row-filled{background:rgba(63,185,80,.05);}
   tbody tr.row-filled:hover{background:rgba(63,185,80,.1);}
-  tbody tr.row-focused{outline:2px solid rgba(56,139,253,.45);outline-offset:-2px;}
   tbody tr.hidden{display:none;}
   td{padding:7px 11px;vertical-align:middle;}
   td:first-child{padding-left:17px;}
@@ -160,11 +146,11 @@
   .empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:3rem;}
   .empty-icon{width:48px;height:48px;border:2px solid var(--border2);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:4px;}
   .empty-title{font-family:var(--mono);font-size:13px;color:var(--text2);letter-spacing:.06em;text-transform:uppercase;}
-  .empty-sub{font-size:13px;color:var(--text3);text-align:center;max-width:320px;line-height:1.6;}
+  .empty-sub{font-size:13px;color:var(--text3);text-align:center;max-width:300px;line-height:1.6;}
   ::-webkit-scrollbar{width:5px;height:5px;}
   ::-webkit-scrollbar-track{background:transparent;}
   ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px;}
-  #toast{position:fixed;bottom:20px;right:20px;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--r);padding:9px 14px;font-family:var(--mono);font-size:12px;color:var(--text);z-index:200;opacity:0;transform:translateY(6px);transition:opacity .2s,transform .2s;pointer-events:none;max-width:320px;}
+  #toast{position:fixed;bottom:20px;right:20px;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--r);padding:9px 14px;font-family:var(--mono);font-size:12px;color:var(--text);z-index:200;opacity:0;transform:translateY(6px);transition:opacity .2s,transform .2s;pointer-events:none;max-width:300px;}
   #toast.show{opacity:1;transform:translateY(0);}
   @media(max-width:800px){
     .layout{grid-template-columns:1fr;grid-template-rows:auto 1fr;height:auto;}
@@ -185,18 +171,10 @@
     </div>
     <span class="app-name">Asset Lookup</span>
   </div>
-  <div class="hdr-right">
-    <span class="session-badge" id="sessionBadge" style="display:none;">
-      <span class="session-dot"></span>auto-saved
-    </span>
-    <button class="btn-sm" onclick="clearSession()">Clear Session</button>
-  </div>
 </header>
 
 <div class="layout">
   <aside>
-
-    <!-- ADD TAGS -->
     <div class="panel">
       <div class="panel-title">Add Tags</div>
       <label>Brand</label>
@@ -207,21 +185,13 @@
       </div>
       <label>Serial / Service Tags</label>
       <textarea id="tagInput" placeholder="One per line or comma separated&#10;&#10;594XKR3&#10;5CG0234407&#10;PF2JLMMR"></textarea>
-      <p class="hint" id="tagHint">Dell: 5–7 char · <kbd>Ctrl+Enter</kbd> to load</p>
-      <div style="display:flex;gap:6px;margin-top:8px;">
-        <button class="btn btn-primary" style="flex:1;" onclick="loadTags()">
-          <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M8 1v9M3 6l5 5 5-5M1 14h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Load Tags
-        </button>
-        <button class="btn btn-ghost" style="flex:1;" onclick="document.getElementById('csvFile').click()" title="Import CSV or plain text file of serials">
-          <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 3h7l3 3v7a1 1 0 01-1 1H3a1 1 0 01-1-1V4a1 1 0 011-1z" stroke="currentColor" stroke-width="1.5"/><path d="M10 3v3h3" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
-          Import File
-        </button>
-        <input type="file" id="csvFile" accept=".csv,.txt" style="display:none;" onchange="importFile(event)">
-      </div>
+      <p class="tag-hint" id="tagHint">Dell: 5–7 char · <kbd>Ctrl+Enter</kbd> to load</p>
+      <button class="btn btn-primary" style="margin-top:8px;" onclick="loadTags()">
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M8 1v9M3 6l5 5 5-5M1 14h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Load Tags
+      </button>
     </div>
 
-    <!-- PROGRESS -->
     <div class="panel">
       <div class="panel-title">Progress</div>
       <div class="stats-grid">
@@ -233,61 +203,21 @@
       <div class="progress-wrap"><div class="progress-bar" id="progress-bar"></div></div>
     </div>
 
-    <!-- BULK OPEN -->
-    <div class="panel">
-      <div class="panel-title">Bulk Open Tabs</div>
-      <p class="hint" style="margin-bottom:9px;">Open a stack of unvisited tabs at once, fill them in, come back for the next batch. <kbd>Ctrl+Shift+B</kbd></p>
-      <div class="bulk-row">
-        <input type="number" id="bulkN" value="5" min="1" max="50">
-        <button class="bulk-btn" id="bulkBtn" onclick="bulkOpen()">Open Next N Tabs</button>
-      </div>
-    </div>
-
-    <!-- PASTE MODELS -->
-    <div class="panel">
-      <div class="panel-title">Paste Models</div>
-      <p class="hint" style="margin-bottom:8px;">One model per line, matching row order. Blank lines skipped. <kbd>Ctrl+Enter</kbd> to apply.</p>
-      <textarea id="modelInput" placeholder="Latitude 5540&#10;EliteBook 840 G10&#10;ThinkPad T14s&#10;..." style="min-height:90px;"></textarea>
-      <button class="btn btn-primary" style="margin-top:8px;" onclick="pasteModels()">
-        <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 2h5l3 3v9a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 2v3h3" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
-        Apply Models
-      </button>
-    </div>
-
-    <!-- SHORTCUTS -->
-    <div class="panel">
-      <div class="panel-title">Keyboard Shortcuts</div>
-      <div class="hk-grid">
-        <kbd>Enter</kbd><span>in model field → jump to next empty model</span>
-        <kbd>Tab</kbd><span>move to next cell</span>
-        <kbd>↑ ↓</kbd><span>move between rows in a column</span>
-        <kbd>Ctrl+Shift+O</kbd><span>open next unvisited tab</span>
-        <kbd>Ctrl+Shift+B</kbd><span>bulk open N tabs</span>
-        <kbd>Ctrl+Enter</kbd><span>load tags or apply models</span>
-      </div>
-    </div>
-
-    <!-- LEGEND -->
     <div class="panel">
       <div class="panel-title">Legend</div>
       <div class="legend">
-        <div class="legend-row"><span class="legend-dot ld-pending"></span>Not opened — Open button highlighted</div>
-        <div class="legend-row"><span class="legend-dot ld-visited"></span>Link opened — fill in model</div>
+        <div class="legend-row"><span class="legend-dot ld-pending"></span>Not opened yet — Open button highlighted</div>
+        <div class="legend-row"><span class="legend-dot ld-visited"></span>Link opened — fill in model &amp; processor</div>
         <div class="legend-row"><span class="legend-dot ld-filled"></span>Details entered — done</div>
       </div>
     </div>
 
-    <!-- ACTIONS -->
     <div class="panel">
       <div class="panel-title">Actions</div>
       <div class="btn-group">
         <button class="btn btn-ghost" onclick="toggleLinkDrawer()">
           <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M7 2H3a1 1 0 00-1 1v10a1 1 0 001 1h10a1 1 0 001-1V9M10 1h5m0 0v5m0-5L6 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           Show All Links
-        </button>
-        <button class="btn btn-ghost" onclick="copyUnvisitedLinks()">
-          <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><rect x="5" y="5" width="9" height="9" rx="1" stroke="currentColor" stroke-width="1.5"/><path d="M11 5V3a1 1 0 00-1-1H3a1 1 0 00-1 1v7a1 1 0 001 1h2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-          Copy Unvisited Links
         </button>
         <button class="btn btn-ghost" onclick="exportCSV()">
           <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M2 10v3a1 1 0 001 1h10a1 1 0 001-1v-3M8 1v8m-3-3l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -300,12 +230,12 @@
       </div>
     </div>
 
-    <div id="linkDrawer" style="display:none;border-bottom:1px solid var(--border);">
+    <div id="linkDrawer">
       <div class="drawer-header">
         <span class="drawer-title" id="drawerTitle">All links</span>
         <button class="drawer-close" onclick="toggleLinkDrawer()">&times;</button>
       </div>
-      <p class="drawer-hint">Middle-click or Ctrl+click to open in new tab.</p>
+      <p class="drawer-hint">Ctrl+click or middle-click to open in a new tab.</p>
       <div id="linkList"></div>
     </div>
 
@@ -325,9 +255,9 @@
         <button class="ftab f-filled" data-filter="filled" onclick="setFilter('filled')">Filled</button>
       </div>
       <div class="toolbar-right">
-        <button class="btn-next" id="btnNext" onclick="openNextUnvisited()" title="Ctrl+Shift+O — open next unvisited">
+        <button class="btn-next" id="btnNext" onclick="openNextUnvisited()" title="Open the next unvisited tag in a new tab (one click = one tab, never blocked)">
           <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Next <span class="btn-next-count" id="nextCount"></span>
+          Next Unvisited <span class="btn-next-count" id="nextCount"></span>
         </button>
         <button class="btn-sm" onclick="copyTable()">
           <svg width="11" height="11" viewBox="0 0 16 16" fill="none"><rect x="5" y="5" width="9" height="9" rx="1" stroke="currentColor" stroke-width="1.5"/><path d="M11 5V3a1 1 0 00-1-1H3a1 1 0 00-1 1v7a1 1 0 001 1h2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
@@ -346,17 +276,18 @@
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M8 12h8M8 8h5M8 16h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
         </div>
         <div class="empty-title">No tags loaded</div>
-        <div class="empty-sub">Pick a brand, paste serials, and click Load Tags — or Import a CSV file. Progress auto-saves in your browser so you can close and come back.</div>
+        <div class="empty-sub">Pick a brand, paste your serials, and click Load Tags. Rows turn yellow when opened, green when filled.</div>
       </div>
 
       <table id="dataTable" style="display:none;">
         <thead>
           <tr>
             <th style="width:32px;text-align:right;">#</th>
-            <th style="width:140px;">Tag / Serial</th>
-            <th style="width:60px;">Brand</th>
-            <th style="width:210px;">Model</th>
-            <th>Processor / Notes</th>
+            <th style="width:145px;">Tag / Serial</th>
+            <th style="width:62px;">Brand</th>
+            <th style="width:185px;">Model</th>
+            <th>Processor</th>
+            <th style="width:110px;">Notes</th>
             <th style="width:78px;">Status</th>
             <th style="width:55px;">Open</th>
           </tr>
@@ -371,186 +302,77 @@
 
 <script>
 const BRANDS={
-  dell:{label:'Dell',hint:'Dell: 5–7 char alphanumeric · <kbd>Ctrl+Enter</kbd> to load',validate:t=>/^[A-Z0-9]{5,7}$/.test(t),url:t=>`https://www.dell.com/support/home/en-us/product-support/servicetag/${t}/overview`},
-  hp:{label:'HP',hint:'HP: 8–12 char serial · <kbd>Ctrl+Enter</kbd> to load',validate:t=>/^[A-Z0-9]{8,12}$/.test(t),url:t=>`https://support.hp.com/us-en/check-warranty?serialnumber=${t}`},
-  lenovo:{label:'Lenovo',hint:'Lenovo: 6–12 char serial · <kbd>Ctrl+Enter</kbd> to load',validate:t=>/^[A-Z0-9]{6,12}$/.test(t),url:t=>`https://pcsupport.lenovo.com/us/en/products/${t}`}
+  dell:{label:'Dell',hint:'Dell: 5\u20137 char alphanumeric \u00b7 <kbd>Ctrl+Enter</kbd> to load',validate:t=>/^[A-Z0-9]{5,7}$/.test(t),url:t=>`https://www.dell.com/support/home/en-us/product-support/servicetag/${t}/overview`},
+  hp:{label:'HP',hint:'HP: 8\u201312 char serial \u00b7 <kbd>Ctrl+Enter</kbd> to load',validate:t=>/^[A-Z0-9]{8,12}$/.test(t),url:t=>`https://support.hp.com/us-en/check-warranty?serialnumber=${t}`},
+  lenovo:{label:'Lenovo',hint:'Lenovo: 6\u201312 char serial \u00b7 <kbd>Ctrl+Enter</kbd> to load',validate:t=>/^[A-Z0-9]{6,12}$/.test(t),url:t=>`https://pcsupport.lenovo.com/us/en/products/${t}`}
 };
+let rows=[],activeBrand='dell',activeFilter='all';
 
-const SKEY='assetlookup_v3';
-let rows=[],activeBrand='dell',activeFilter='all',focusedRow=-1;
+function selectBrand(b){activeBrand=b;['dell','hp','lenovo'].forEach(x=>document.getElementById('btn-'+x).className='brand-btn'+(x===b?' active-'+x:''));document.getElementById('tagHint').innerHTML=BRANDS[b].hint;}
+function parseTags(raw,brand){return[...new Set(raw.split(/[\n,]+/).map(t=>t.trim().toUpperCase()).filter(t=>BRANDS[brand].validate(t)))];}
 
-// ── SESSION ───────────────────────────────────────────────────────────────────
-function saveSession(){
-  try{localStorage.setItem(SKEY,JSON.stringify({rows,activeBrand}));showSavedBadge();}catch(e){}
-}
-function showSavedBadge(){document.getElementById('sessionBadge').style.display='flex';}
-function loadSession(){
-  try{
-    const d=JSON.parse(localStorage.getItem(SKEY)||'null');
-    if(d&&d.rows&&d.rows.length){
-      rows=d.rows;activeBrand=d.activeBrand||'dell';
-      selectBrand(activeBrand);render();showSavedBadge();
-      setStatus('Session restored — '+rows.length+' tags.','ok');return true;
-    }
-  }catch(e){}
-  return false;
-}
-function clearSession(){
-  if(!confirm('Wipe the saved session from this browser? All current rows will be removed.'))return;
-  localStorage.removeItem(SKEY);rows=[];
-  document.getElementById('sessionBadge').style.display='none';
-  activeFilter='all';setFilter('all');render();
-  setStatus('Session cleared.','');toast('Session cleared.');
-}
-
-// ── BRAND / TAGS ──────────────────────────────────────────────────────────────
-function selectBrand(b){
-  activeBrand=b;
-  ['dell','hp','lenovo'].forEach(x=>document.getElementById('btn-'+x).className='brand-btn'+(x===b?' active-'+x:''));
-  document.getElementById('tagHint').innerHTML=BRANDS[b].hint;
-}
-function parseTags(raw,brand){
-  return[...new Set(raw.split(/[\n,]+/).map(t=>t.trim().toUpperCase()).filter(t=>BRANDS[brand].validate(t)))];
-}
 function loadTags(){
   const raw=document.getElementById('tagInput').value;
   const tags=parseTags(raw,activeBrand);
-  if(!tags.length){setStatus('No valid tags — check format for '+BRANDS[activeBrand].label+'.','warn');return;}
+  if(!tags.length){setStatus('No valid tags \u2014 check format for '+BRANDS[activeBrand].label+'.','warn');return;}
   const existing=new Set(rows.map(r=>r.brand+':'+r.tag));
-  const newRows=tags.filter(t=>!existing.has(activeBrand+':'+t)).map(t=>({tag:t,brand:activeBrand,model:'',proc:'',visited:false}));
+  const newRows=tags.filter(t=>!existing.has(activeBrand+':'+t)).map(t=>({tag:t,brand:activeBrand,model:'',proc:'',notes:'',visited:false}));
   const dupes=tags.length-newRows.length;
   rows.push(...newRows);
   document.getElementById('tagInput').value='';
-  render();saveSession();
+  render();
   let msg='Loaded '+newRows.length+' '+BRANDS[activeBrand].label+' tag'+(newRows.length!==1?'s':'');
-  if(dupes)msg+=' · '+dupes+' duplicate'+(dupes!==1?'s':'')+' skipped';
+  if(dupes)msg+=' \u00b7 '+dupes+' duplicate'+(dupes!==1?'s':'')+' skipped';
   setStatus(msg,'ok');toast(msg);
 }
 
-// ── FILE IMPORT ───────────────────────────────────────────────────────────────
-function importFile(e){
-  const file=e.target.files[0];if(!file)return;
-  const reader=new FileReader();
-  reader.onload=ev=>{
-    const text=ev.target.result;
-    const tokens=[...new Set(text.split(/[\n,\r\t"]+/).map(t=>t.trim().toUpperCase()).filter(t=>t.length>=5))];
-    const existing=new Set(rows.map(r=>r.brand+':'+r.tag));
-    let added=0;
-    tokens.forEach(t=>{
-      for(const b of ['dell','hp','lenovo']){
-        if(BRANDS[b].validate(t)&&!existing.has(b+':'+t)){
-          rows.push({tag:t,brand:b,model:'',proc:'',visited:false});
-          existing.add(b+':'+t);added++;break;
-        }
-      }
-    });
-    e.target.value='';
-    if(!added){toast('No new valid serials found in file.');return;}
-    render();saveSession();
-    toast('Imported '+added+' serial'+(added!==1?'s':'')+' from file.');
-    setStatus('Imported '+added+' from file.','ok');
-  };
-  reader.readAsText(file);
-}
-
-// ── ROW STATE ─────────────────────────────────────────────────────────────────
 function rowState(r){if(r.model.trim()||r.proc.trim())return'filled';if(r.visited)return'visited';return'pending';}
 
-// ── RENDER ────────────────────────────────────────────────────────────────────
 function render(){
   const tbody=document.getElementById('tbody'),table=document.getElementById('dataTable'),empty=document.getElementById('emptyState');
   if(!rows.length){table.style.display='none';empty.style.display='flex';updateStats();return;}
   table.style.display='table';empty.style.display='none';
-
   tbody.innerHTML=rows.map((r,i)=>{
     const s=rowState(r);
-    return`<tr id="row-${i}" class="${s==='filled'?'row-filled':s==='visited'?'row-visited':''}" data-state="${s}" data-idx="${i}">
-      <td class="row-num">${i+1}</td>
-      <td><div class="tag-cell"><span class="dot dot-${s}" id="dot-${i}"></span>
-      <a class="tag-link c-${r.brand}" href="${BRANDS[r.brand].url(r.tag)}" target="_blank" rel="noopener" data-idx="${i}">${esc(r.tag)}</a></div></td>
-      <td><span class="brand-pill pill-${r.brand}">${BRANDS[r.brand].label}</span></td>
-      <td><input class="cell-input model-input" type="text" placeholder="${modelPH(r.brand)}" value="${esc(r.model)}" data-idx="${i}" oninput="update(${i},'model',this.value)"></td>
-      <td><input class="cell-input proc-input" type="text" placeholder="Processor / notes" value="${esc(r.proc)}" data-idx="${i}" oninput="update(${i},'proc',this.value)"></td>
-      <td>${badgeHtml(s)}</td>
-      <td><button class="open-btn${s==='pending'?' unvisited':''}" onclick="openTag(${i})">Open</button></td>
-    </tr>`;
+    return '<tr id="row-'+i+'" class="'+(s==='filled'?'row-filled':s==='visited'?'row-visited':'')+'" data-state="'+s+'">'+
+      '<td class="row-num">'+(i+1)+'</td>'+
+      '<td><div class="tag-cell"><span class="dot dot-'+s+'" id="dot-'+i+'"></span>'+
+      '<a class="tag-link c-'+r.brand+'" href="'+BRANDS[r.brand].url(r.tag)+'" target="_blank" rel="noopener noreferrer" onclick="markVisited('+i+')">'+esc(r.tag)+'</a></div></td>'+
+      '<td><span class="brand-pill pill-'+r.brand+'">'+BRANDS[r.brand].label+'</span></td>'+
+      '<td><input class="cell-input" type="text" placeholder="'+modelPH(r.brand)+'" value="'+esc(r.model)+'" oninput="update('+i+',\'model\',this.value)"></td>'+
+      '<td><input class="cell-input" type="text" placeholder="e.g. Intel Core i5-1345U" value="'+esc(r.proc)+'" oninput="update('+i+',\'proc\',this.value)"></td>'+
+      '<td><input class="cell-input" type="text" placeholder="\u2014" value="'+esc(r.notes)+'" oninput="update('+i+',\'notes\',this.value)"></td>'+
+      '<td>'+badgeHtml(s)+'</td>'+
+      '<td><button class="open-btn'+(s==='pending'?' unvisited':'')+'" onclick="openTag('+i+')">Open</button></td>'+
+      '</tr>';
   }).join('');
-
-  // tag link: mark visited on any mouse button or keyboard Enter
-  tbody.querySelectorAll('.tag-link').forEach(a=>{
-    a.addEventListener('mousedown',()=>markVisited(parseInt(a.dataset.idx,10)));
-    a.addEventListener('keydown',e=>{if(e.key==='Enter')markVisited(parseInt(a.dataset.idx,10));});
-  });
-
-  // model inputs: Enter → next empty model; arrows → up/down rows
-  tbody.querySelectorAll('.model-input').forEach(inp=>{
-    inp.addEventListener('keydown',e=>{
-      const i=parseInt(inp.dataset.idx,10);
-      if(e.key==='Enter'){e.preventDefault();focusNextEmptyModel(i);}
-      if(e.key==='ArrowDown'){e.preventDefault();focusRow(i+1,'model');}
-      if(e.key==='ArrowUp'){e.preventDefault();focusRow(i-1,'model');}
-    });
-    inp.addEventListener('focus',()=>setFocusRow(parseInt(inp.dataset.idx,10)));
-  });
-
-  tbody.querySelectorAll('.proc-input').forEach(inp=>{
-    inp.addEventListener('keydown',e=>{
-      const i=parseInt(inp.dataset.idx,10);
-      if(e.key==='ArrowDown'){e.preventDefault();focusRow(i+1,'proc');}
-      if(e.key==='ArrowUp'){e.preventDefault();focusRow(i-1,'proc');}
-    });
-    inp.addEventListener('focus',()=>setFocusRow(parseInt(inp.dataset.idx,10)));
-  });
-
   applyFilters();updateStats();
 }
 
-function setFocusRow(i){
-  document.querySelectorAll('#tbody tr.row-focused').forEach(tr=>tr.classList.remove('row-focused'));
-  focusedRow=i;
-  const tr=document.getElementById('row-'+i);
-  if(tr)tr.classList.add('row-focused');
-}
-function focusRow(i,field='model'){
-  if(i<0||i>=rows.length)return;
-  const tr=document.getElementById('row-'+i);if(!tr)return;
-  const inp=tr.querySelector(field==='model'?'.model-input':'.proc-input');
-  if(inp){inp.focus();tr.scrollIntoView({block:'nearest'});}
-}
-function focusNextEmptyModel(fromIdx){
-  for(let i=fromIdx+1;i<rows.length;i++){if(!rows[i].model.trim()){focusRow(i,'model');return;}}
-  for(let i=0;i<=fromIdx;i++){if(!rows[i].model.trim()){focusRow(i,'model');return;}}
-  toast('All models filled!');
-}
-
 function badgeHtml(s){
-  if(s==='filled')return'<span class="vis-badge vis-filled">&#10003; filled</span>';
-  if(s==='visited')return'<span class="vis-badge vis-visited">&#9678; opened</span>';
-  return'<span class="vis-badge vis-pending">&mdash;</span>';
+  if(s==='filled')return'<span class="vis-badge vis-filled">\u2713 filled</span>';
+  if(s==='visited')return'<span class="vis-badge vis-visited">\u25ce opened</span>';
+  return'<span class="vis-badge vis-pending">\u2014</span>';
 }
 function modelPH(b){return b==='dell'?'Latitude 5540':b==='hp'?'EliteBook 840 G10':'ThinkPad T14s';}
 function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
-// Debounced save — fires 600ms after last keystroke, not on every character
-let saveTimer=null;
-function debouncedSave(){clearTimeout(saveTimer);saveTimer=setTimeout(saveSession,600);}
-
-function update(i,field,val){rows[i][field]=val;refreshRow(i);updateStats();debouncedSave();}
-function markVisited(i){if(!rows[i].visited){rows[i].visited=true;refreshRow(i);updateStats();saveSession();}}
+function update(i,field,val){rows[i][field]=val;refreshRow(i);updateStats();}
+function markVisited(i){if(!rows[i].visited){rows[i].visited=true;refreshRow(i);updateStats();}}
 
 function refreshRow(i){
   const r=rows[i],tr=document.getElementById('row-'+i);if(!tr)return;
   const s=rowState(r);
   const dot=document.getElementById('dot-'+i);
   if(dot)dot.className='dot dot-'+s;
-  tr.className=(s==='filled'?'row-filled':s==='visited'?'row-visited':'')+(focusedRow===i?' row-focused':'');
+  tr.className=s==='filled'?'row-filled':s==='visited'?'row-visited':'';
   tr.dataset.state=s;
-  tr.cells[5].innerHTML=badgeHtml(s);
-  const ob=tr.cells[6].querySelector('button');
+  tr.cells[6].innerHTML=badgeHtml(s);
+  const ob=tr.cells[7].querySelector('button');
   if(ob)ob.className='open-btn'+(s==='pending'?' unvisited':'');
+  applyFilters();
 }
 
-// ── STATS ─────────────────────────────────────────────────────────────────────
 function updateStats(){
   const total=rows.length;
   const opened=rows.filter(r=>r.visited||r.model.trim()||r.proc.trim()).length;
@@ -563,16 +385,14 @@ function updateStats(){
   document.getElementById('s-remaining').textContent=remaining;
   document.getElementById('progress-bar').style.width=pct+'%';
   updateNextCount();
-  const bb=document.getElementById('bulkBtn');
-  if(bb)bb.disabled=(remaining===0);
 }
 
-// ── FILTERS ───────────────────────────────────────────────────────────────────
 function setFilter(f){
   activeFilter=f;
   document.querySelectorAll('.ftab').forEach(b=>b.classList.toggle('active',b.dataset.filter===f));
   applyFilters();
 }
+
 function applyFilters(){
   const q=document.getElementById('searchInput').value.toLowerCase().trim();
   document.querySelectorAll('#tbody tr').forEach((tr,i)=>{
@@ -582,138 +402,71 @@ function applyFilters(){
     if(activeFilter==='visited'&&s==='pending')show=false;
     if(activeFilter==='unvisited'&&s!=='pending')show=false;
     if(activeFilter==='filled'&&s!=='filled')show=false;
-    if(show&&q){const hay=[r.tag,BRANDS[r.brand].label,r.model,r.proc].join(' ').toLowerCase();if(!hay.includes(q))show=false;}
+    if(show&&q){const hay=[r.tag,BRANDS[r.brand].label,r.model,r.proc,r.notes].join(' ').toLowerCase();if(!hay.includes(q))show=false;}
     tr.classList.toggle('hidden',!show);
   });
 }
 
-// ── OPEN TABS ─────────────────────────────────────────────────────────────────
 function openNextUnvisited(){
-  const idx=rows.findIndex(r=>rowState(r)==='pending');
-  if(idx===-1){toast('All tags have been opened!');return;}
+  const idx = rows.findIndex(r => rowState(r) === 'pending');
+  if(idx === -1){ toast('All tags have been opened!'); return; }
   markVisited(idx);
-  window.open(BRANDS[rows[idx].brand].url(rows[idx].tag),'_blank','noopener');
-  const tr=document.getElementById('row-'+idx);
-  if(tr)tr.scrollIntoView({behavior:'smooth',block:'center'});
+  window.open(BRANDS[rows[idx].brand].url(rows[idx].tag), '_blank', 'noopener');
+  // scroll to that row
+  const tr = document.getElementById('row-'+idx);
+  if(tr) tr.scrollIntoView({behavior:'smooth', block:'center'});
   updateNextCount();
 }
-function bulkOpen(){
-  const n=Math.max(1,Math.min(50,parseInt(document.getElementById('bulkN').value)||5));
-  const pending=rows.map((r,i)=>({r,i})).filter(({r})=>rowState(r)==='pending');
-  if(!pending.length){toast('No unvisited tags remaining.');return;}
-  const batch=pending.slice(0,n);
 
-  // Open all blank tabs synchronously inside the click handler (browser allows this).
-  // Then navigate each one immediately — avoids popup blocker on looped window.open.
-  const handles=batch.map(()=>window.open('','_blank','noopener'));
-  batch.forEach(({r,i},idx)=>{
-    markVisited(i);
-    const win=handles[idx];
-    if(win) win.location.href=BRANDS[r.brand].url(r.tag);
-  });
-
-  const tr=document.getElementById('row-'+batch[0].i);
-  if(tr)tr.scrollIntoView({behavior:'smooth',block:'center'});
-  const left=pending.length-batch.length;
-  toast('Opened '+batch.length+' tab'+(batch.length!==1?'s':'')+' · '+left+' remaining.');
-}
 function updateNextCount(){
-  const rem=rows.filter(r=>rowState(r)==='pending').length;
-  const el=document.getElementById('nextCount'),btn=document.getElementById('btnNext');
-  if(!el||!btn)return;
-  el.textContent=rem>0?'('+rem+')':'';
-  btn.disabled=rem===0;
-}
-function openTag(i){markVisited(i);window.open(BRANDS[rows[i].brand].url(rows[i].tag),'_blank','noopener');}
-
-// ── PASTE MODELS ──────────────────────────────────────────────────────────────
-function pasteModels(){
-  if(!rows.length){toast('Load tags first.');return;}
-  const lines=document.getElementById('modelInput').value.split('\n').map(l=>l.trim()).filter(l=>l.length>0);
-  if(!lines.length){toast('Nothing to apply.');return;}
-  let applied=0;
-  lines.forEach((val,i)=>{if(i<rows.length){rows[i].model=val;applied++;}});
-  document.getElementById('modelInput').value='';
-  render();saveSession();
-  toast('Applied '+applied+' model'+(applied!==1?'s':'')+' to rows 1–'+applied+'.');
-  setStatus('Applied '+applied+' models.','ok');
+  const remaining = rows.filter(r => rowState(r) === 'pending').length;
+  const el = document.getElementById('nextCount');
+  const btn = document.getElementById('btnNext');
+  if(!el || !btn) return;
+  el.textContent = remaining > 0 ? '(' + remaining + ')' : '';
+  btn.disabled = remaining === 0;
 }
 
-// ── COPY UNVISITED LINKS ──────────────────────────────────────────────────────
-function copyUnvisitedLinks(){
-  const unv=rows.filter(r=>rowState(r)==='pending');
-  if(!unv.length){toast('No unvisited tags to copy.');return;}
-  navigator.clipboard.writeText(unv.map(r=>BRANDS[r.brand].url(r.tag)).join('\n'))
-    .then(()=>toast('Copied '+unv.length+' unvisited link'+(unv.length!==1?'s':'')+'.'))
-    .catch(()=>toast('Copy failed — try Export CSV.'));
-}
+function openTag(i){markVisited(i);window.open(BRANDS[rows[i].brand].url(rows[i].tag),'_blank','noopener,noreferrer');}
 
-// ── LINK DRAWER ───────────────────────────────────────────────────────────────
 function toggleLinkDrawer(){
   const drawer=document.getElementById('linkDrawer'),list=document.getElementById('linkList');
   if(drawer.style.display!=='none'){drawer.style.display='none';return;}
   if(!rows.length){toast('No tags loaded.');return;}
   list.innerHTML=rows.map((r,i)=>{
     const s=rowState(r);
-    return`<a href="${BRANDS[r.brand].url(r.tag)}" target="_blank" rel="noopener" class="dl dl-${r.brand}" data-idx="${i}">
-      <span class="dot dot-${s}" style="width:7px;height:7px;flex-shrink:0;"></span>
-      <span class="dl-tag">${esc(r.tag)}</span>
-      <span class="dl-info">${r.model?'— '+esc(r.model):''}</span></a>`;
+    return'<a href="'+BRANDS[r.brand].url(r.tag)+'" target="_blank" rel="noopener noreferrer" class="dl dl-'+r.brand+'" onclick="markVisited('+i+')">'+
+      '<span class="dot dot-'+s+'" style="width:7px;height:7px;flex-shrink:0;"></span>'+
+      '<span class="dl-tag">'+esc(r.tag)+'</span>'+
+      '<span class="dl-info">'+(r.model?'\u2014 '+esc(r.model):'')+'</span></a>';
   }).join('');
-  list.querySelectorAll('.dl').forEach(a=>{
-    a.addEventListener('mousedown',()=>markVisited(parseInt(a.dataset.idx,10)));
-  });
   document.getElementById('drawerTitle').textContent='All links ('+rows.length+')';
   drawer.style.display='block';
 }
 
-// ── EXPORT / COPY ─────────────────────────────────────────────────────────────
 function exportCSV(){
   if(!rows.length){toast('Nothing to export.');return;}
-  const hdr='Service Tag,Brand,Model,Processor/Notes,Visited';
-  const lines=rows.map(r=>[r.tag,BRANDS[r.brand].label,r.model,r.proc,r.visited?'yes':'no'].map(v=>'"'+(v||'').replace(/"/g,'""')+'"').join(','));
-  const a=Object.assign(document.createElement('a'),{
-    href:URL.createObjectURL(new Blob([[hdr,...lines].join('\r\n')],{type:'text/csv;charset=utf-8;'})),
-    download:'assets_'+new Date().toISOString().slice(0,10)+'.csv'
-  });
+  const hdr='Service Tag,Brand,Model,Processor,Notes,Visited';
+  const lines=rows.map(r=>[r.tag,BRANDS[r.brand].label,r.model,r.proc,r.notes,r.visited?'yes':'no'].map(v=>'"'+(v||'').replace(/"/g,'""')+'"').join(','));
+  const a=Object.assign(document.createElement('a'),{href:URL.createObjectURL(new Blob([[hdr,...lines].join('\r\n')],{type:'text/csv;charset=utf-8;'})),download:'assets_'+new Date().toISOString().slice(0,10)+'.csv'});
   document.body.appendChild(a);a.click();document.body.removeChild(a);
   toast('Exported '+rows.length+' rows.');
 }
+
 function copyTable(){
   if(!rows.length){toast('Nothing to copy.');return;}
-  const lines=rows.map(r=>r.tag+'\t'+r.model);
-  navigator.clipboard.writeText(lines.join('\n'))
-    .then(()=>toast('Copied — Tag + Model only.'))
-    .catch(()=>toast('Copy failed — use Export CSV.'));
+  const hdr=['#','Tag','Brand','Model','Processor','Notes','Visited'].join('\t');
+  const lines=rows.map((r,i)=>[(i+1),r.tag,BRANDS[r.brand].label,r.model,r.proc,r.notes,r.visited?'yes':'no'].join('\t'));
+  navigator.clipboard.writeText([hdr,...lines].join('\n'))
+    .then(()=>toast('Copied \u2014 paste into Excel or Sheets.'))
+    .catch(()=>toast('Copy failed \u2014 use Export CSV.'));
 }
 
-// ── CLEAR ─────────────────────────────────────────────────────────────────────
-function clearAll(){
-  if(!rows.length)return;
-  if(!confirm('Clear all '+rows.length+' rows and wipe the saved session?'))return;
-  rows=[];activeFilter='all';setFilter('all');render();
-  localStorage.removeItem(SKEY);
-  document.getElementById('sessionBadge').style.display='none';
-  setStatus('Cleared.','');toast('All rows cleared.');
-}
-
-// ── UTILS ─────────────────────────────────────────────────────────────────────
+function clearAll(){if(!rows.length)return;rows=[];activeFilter='all';setFilter('all');render();setStatus('Cleared.','');toast('All rows cleared.');}
 function setStatus(msg,type){const el=document.getElementById('status-msg');el.textContent=msg;el.className='status-msg'+(type?' '+type:'');}
 let tt;
 function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>el.classList.remove('show'),3200);}
-
-// ── GLOBAL SHORTCUTS ──────────────────────────────────────────────────────────
-document.addEventListener('keydown',e=>{
-  if(e.key==='Enter'&&(e.ctrlKey||e.metaKey)){
-    if(document.activeElement===document.getElementById('tagInput')){e.preventDefault();loadTags();return;}
-    if(document.activeElement===document.getElementById('modelInput')){e.preventDefault();pasteModels();return;}
-  }
-  if(e.key==='O'&&e.ctrlKey&&e.shiftKey){e.preventDefault();openNextUnvisited();}
-  if(e.key==='B'&&e.ctrlKey&&e.shiftKey){e.preventDefault();bulkOpen();}
-});
-
-// ── BOOT ──────────────────────────────────────────────────────────────────────
-loadSession();
+document.getElementById('tagInput').addEventListener('keydown',e=>{if(e.key==='Enter'&&(e.ctrlKey||e.metaKey))loadTags();});
 </script>
 </body>
 </html>
