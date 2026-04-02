@@ -99,6 +99,11 @@
   .btn-sm:hover{border-color:var(--accent);color:var(--accent-h);}
   .btn-sm.primary{background:var(--accent);color:#fff;border-color:var(--accent);}
   .btn-sm.primary:hover{background:var(--accent-h);}
+  .btn-next{padding:5px 14px;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.06em;border-radius:var(--r);border:2px solid var(--yellow);background:rgba(227,179,65,.12);color:var(--yellow);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:6px;text-transform:uppercase;white-space:nowrap;}
+  .btn-next:hover{background:rgba(227,179,65,.25);box-shadow:0 0 10px rgba(227,179,65,.3);}
+  .btn-next:active{transform:scale(0.97);}
+  .btn-next:disabled{opacity:.35;cursor:not-allowed;box-shadow:none;}
+  .btn-next-count{font-size:10px;opacity:.7;margin-left:2px;}
   .table-scroll{flex:1;overflow:auto;}
   table{width:100%;border-collapse:collapse;}
   thead{position:sticky;top:0;z-index:10;}
@@ -250,6 +255,10 @@
         <button class="ftab f-filled" data-filter="filled" onclick="setFilter('filled')">Filled</button>
       </div>
       <div class="toolbar-right">
+        <button class="btn-next" id="btnNext" onclick="openNextUnvisited()" title="Open the next unvisited tag in a new tab (one click = one tab, never blocked)">
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Next Unvisited <span class="btn-next-count" id="nextCount"></span>
+        </button>
         <button class="btn-sm" onclick="copyTable()">
           <svg width="11" height="11" viewBox="0 0 16 16" fill="none"><rect x="5" y="5" width="9" height="9" rx="1" stroke="currentColor" stroke-width="1.5"/><path d="M11 5V3a1 1 0 00-1-1H3a1 1 0 00-1 1v7a1 1 0 001 1h2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
           Copy
@@ -375,6 +384,7 @@ function updateStats(){
   document.getElementById('s-filled').textContent=filled;
   document.getElementById('s-remaining').textContent=remaining;
   document.getElementById('progress-bar').style.width=pct+'%';
+  updateNextCount();
 }
 
 function setFilter(f){
@@ -395,6 +405,26 @@ function applyFilters(){
     if(show&&q){const hay=[r.tag,BRANDS[r.brand].label,r.model,r.proc,r.notes].join(' ').toLowerCase();if(!hay.includes(q))show=false;}
     tr.classList.toggle('hidden',!show);
   });
+}
+
+function openNextUnvisited(){
+  const idx = rows.findIndex(r => rowState(r) === 'pending');
+  if(idx === -1){ toast('All tags have been opened!'); return; }
+  markVisited(idx);
+  window.open(BRANDS[rows[idx].brand].url(rows[idx].tag), '_blank', 'noopener');
+  // scroll to that row
+  const tr = document.getElementById('row-'+idx);
+  if(tr) tr.scrollIntoView({behavior:'smooth', block:'center'});
+  updateNextCount();
+}
+
+function updateNextCount(){
+  const remaining = rows.filter(r => rowState(r) === 'pending').length;
+  const el = document.getElementById('nextCount');
+  const btn = document.getElementById('btnNext');
+  if(!el || !btn) return;
+  el.textContent = remaining > 0 ? '(' + remaining + ')' : '';
+  btn.disabled = remaining === 0;
 }
 
 function openTag(i){markVisited(i);window.open(BRANDS[rows[i].brand].url(rows[i].tag),'_blank','noopener');}
