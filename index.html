@@ -337,7 +337,7 @@ function render(){
     return '<tr id="row-'+i+'" class="'+(s==='filled'?'row-filled':s==='visited'?'row-visited':'')+'" data-state="'+s+'">'+
       '<td class="row-num">'+(i+1)+'</td>'+
       '<td><div class="tag-cell"><span class="dot dot-'+s+'" id="dot-'+i+'"></span>'+
-      '<a class="tag-link c-'+r.brand+'" href="'+BRANDS[r.brand].url(r.tag)+'" target="_blank" rel="noopener" onclick="markVisited('+i+')">'+esc(r.tag)+'</a></div></td>'+
+      '<a class="tag-link c-'+r.brand+'" href="'+BRANDS[r.brand].url(r.tag)+'" target="_blank" rel="noopener" data-idx="'+i+'">'+esc(r.tag)+'</a></div></td>'+
       '<td><span class="brand-pill pill-'+r.brand+'">'+BRANDS[r.brand].label+'</span></td>'+
       '<td><input class="cell-input" type="text" placeholder="'+modelPH(r.brand)+'" value="'+esc(r.model)+'" oninput="update('+i+',\'model\',this.value)"></td>'+
       '<td><input class="cell-input" type="text" placeholder="e.g. Intel Core i5-1345U" value="'+esc(r.proc)+'" oninput="update('+i+',\'proc\',this.value)"></td>'+
@@ -346,6 +346,24 @@ function render(){
       '<td><button class="open-btn'+(s==='pending'?' unvisited':'')+'" onclick="openTag('+i+')">Open</button></td>'+
       '</tr>';
   }).join('');
+
+  // Attach mousedown to tag links so visited fires on ANY open method:
+  // left-click, middle-click, Ctrl/Cmd+click, right-click > open in new tab
+  document.querySelectorAll('#tbody .tag-link').forEach(a=>{
+    a.addEventListener('mousedown', e=>{
+      // any button: left(0), middle(1), or with modifier
+      const i=parseInt(a.dataset.idx,10);
+      markVisited(i);
+    });
+    // also cover keyboard navigation (Enter key on focused link)
+    a.addEventListener('keydown', e=>{
+      if(e.key==='Enter'){
+        const i=parseInt(a.dataset.idx,10);
+        markVisited(i);
+      }
+    });
+  });
+
   applyFilters();updateStats();
 }
 
@@ -358,7 +376,14 @@ function modelPH(b){return b==='dell'?'Latitude 5540':b==='hp'?'EliteBook 840 G1
 function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
 function update(i,field,val){rows[i][field]=val;refreshRow(i);updateStats();}
-function markVisited(i){if(!rows[i].visited){rows[i].visited=true;refreshRow(i);updateStats();}}
+
+function markVisited(i){
+  if(!rows[i].visited){
+    rows[i].visited=true;
+    refreshRow(i);
+    updateStats();
+  }
+}
 
 function refreshRow(i){
   const r=rows[i],tr=document.getElementById('row-'+i);if(!tr)return;
@@ -412,7 +437,6 @@ function openNextUnvisited(){
   if(idx === -1){ toast('All tags have been opened!'); return; }
   markVisited(idx);
   window.open(BRANDS[rows[idx].brand].url(rows[idx].tag), '_blank', 'noopener');
-  // scroll to that row
   const tr = document.getElementById('row-'+idx);
   if(tr) tr.scrollIntoView({behavior:'smooth', block:'center'});
   updateNextCount();
@@ -435,11 +459,18 @@ function toggleLinkDrawer(){
   if(!rows.length){toast('No tags loaded.');return;}
   list.innerHTML=rows.map((r,i)=>{
     const s=rowState(r);
-    return'<a href="'+BRANDS[r.brand].url(r.tag)+'" target="_blank" rel="noopener" class="dl dl-'+r.brand+'" onclick="markVisited('+i+')">'+
+    return'<a href="'+BRANDS[r.brand].url(r.tag)+'" target="_blank" rel="noopener" class="dl dl-'+r.brand+'" data-idx="'+i+'">'+
       '<span class="dot dot-'+s+'" style="width:7px;height:7px;flex-shrink:0;"></span>'+
       '<span class="dl-tag">'+esc(r.tag)+'</span>'+
       '<span class="dl-info">'+(r.model?'\u2014 '+esc(r.model):'')+'</span></a>';
   }).join('');
+  // mousedown tracking for drawer links too
+  list.querySelectorAll('.dl').forEach(a=>{
+    a.addEventListener('mousedown',()=>{
+      const i=parseInt(a.dataset.idx,10);
+      markVisited(i);
+    });
+  });
   document.getElementById('drawerTitle').textContent='All links ('+rows.length+')';
   drawer.style.display='block';
 }
