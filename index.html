@@ -213,6 +213,16 @@
     </div>
 
     <div class="panel">
+      <div class="panel-title">Paste Models</div>
+      <p class="tag-hint" style="margin-bottom:8px;">One model per line, in the same order as your loaded tags. Skips blank lines.</p>
+      <textarea id="modelInput" placeholder="Latitude 5540&#10;EliteBook 840 G10&#10;ThinkPad T14s&#10;..." style="min-height:100px;"></textarea>
+      <button class="btn btn-primary" style="margin-top:8px;" onclick="pasteModels()">
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 2h5l3 3v9a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 2v3h3" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        Apply Models
+      </button>
+    </div>
+
+    <div class="panel">
       <div class="panel-title">Actions</div>
       <div class="btn-group">
         <button class="btn btn-ghost" onclick="toggleLinkDrawer()">
@@ -491,6 +501,20 @@ function copyTable(){
   navigator.clipboard.writeText([hdr,...lines].join('\n'))
     .then(()=>toast('Copied \u2014 paste into Excel or Sheets.'))
     .catch(()=>toast('Copy failed \u2014 use Export CSV.'));
+}
+
+function pasteModels(){
+  if(!rows.length){toast('Load tags first.');return;}
+  const lines=document.getElementById('modelInput').value.split('\n').map(l=>l.trim()).filter(l=>l.length>0);
+  if(!lines.length){toast('Nothing to apply.');return;}
+  let applied=0;
+  lines.forEach((val,i)=>{
+    if(i<rows.length){rows[i].model=val;applied++;}
+  });
+  document.getElementById('modelInput').value='';
+  render();
+  toast('Applied '+applied+' model'+(applied!==1?'s':'')+' to rows 1\u2013'+applied+'.');
+  setStatus('Applied '+applied+' models.','ok');
 }
 
 function clearAll(){if(!rows.length)return;rows=[];activeFilter='all';setFilter('all');render();setStatus('Cleared.','');toast('All rows cleared.');}
